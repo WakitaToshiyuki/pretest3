@@ -1,6 +1,6 @@
 @extends('layouts.user_app') 
 @section('css')
-<link rel="stylesheet" href="{{ asset('css/index.css') }}" />
+<link rel="stylesheet" href="{{ asset('css/work.css') }}" />
 @endsection 
 
 @section('content')
@@ -9,11 +9,14 @@
         <form action="" class="">
         @csrf
             <div class="">
-                <p class="">勤務外</p>
+                <p class="">勤務中</p>
             </div>
             <p class="">{{$date}}({{$weekday}})</p>
             <p class="">{{$time}}</p>
-            <button class="">出勤</button>
+            <div class="">
+            <button class="">退勤</button>
+            <button class="">休憩入</button>
+        </div>
         </form>
     </div>
 </div>
