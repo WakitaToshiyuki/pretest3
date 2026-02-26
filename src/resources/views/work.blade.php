@@ -6,7 +6,7 @@
 @section('content')
 <div class="layout">
     <div class="">
-        <form action="" class="">
+        <form action="/work" method="POST" class="">
         @csrf
             <div class="">
                 <p class="">勤務中</p>
@@ -14,8 +14,8 @@
             <p class="">{{$date}}({{$weekday}})</p>
             <p class="">{{$time}}</p>
             <div class="">
-            <button class="">退勤</button>
-            <button class="">休憩入</button>
+            <button name="finish" class="">退勤</button>
+            <button name="rest" class="">休憩入</button>
         </div>
         </form>
     </div>

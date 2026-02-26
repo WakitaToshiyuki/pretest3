@@ -19,6 +19,10 @@ use App\Http\Controllers\WorkController;
 
 Route::middleware('auth')->group(function () {
     Route::get('/', [UserController::class, 'index']);
+    Route::get('/work', [UserController::class, 'work']);
+    Route::post('/work', [UserController::class, 'form']);
+    Route::get('/rest', [UserController::class, 'rest']);
+    Route::get('/finish', [UserController::class, 'finish']);
 });
 
 //仮組↓

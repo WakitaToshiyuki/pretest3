@@ -6,7 +6,7 @@
 @section('content')
 <div class="layout">
     <div class="">
-        <form action="" class="">
+        <form action="/work" method="GET" class="">
         @csrf
             <div class="">
                 <p class="">休憩中</p>

@@ -20,4 +20,40 @@ class UserController extends Controller
 
         return view('user_index',compact('date','time','weekday',));
     }
+
+    public function work(){
+        $date = Carbon::today()->format('Y年m月d日');
+        $time = Carbon::now()->format('H:i');
+        $weekdays = ['日', '月', '火', '水', '木', '金', '土'];
+        $weekdayIndex = Carbon::now()->format('w');
+        $weekday = $weekdays[$weekdayIndex];
+
+        return view('work',compact('date','time','weekday',));
+    }
+    public function form(Request $request){
+        if($request->has('rest')){
+            return redirect('/rest');
+        }
+        if($request->has('finish')){
+            return redirect('/finish');
+        }
+    }
+    public function rest(){
+        $date = Carbon::today()->format('Y年m月d日');
+        $time = Carbon::now()->format('H:i');
+        $weekdays = ['日', '月', '火', '水', '木', '金', '土'];
+        $weekdayIndex = Carbon::now()->format('w');
+        $weekday = $weekdays[$weekdayIndex];
+
+        return view('rest',compact('date','time','weekday',));
+    }
+    public function finish(){
+        $date = Carbon::today()->format('Y年m月d日');
+        $time = Carbon::now()->format('H:i');
+        $weekdays = ['日', '月', '火', '水', '木', '金', '土'];
+        $weekdayIndex = Carbon::now()->format('w');
+        $weekday = $weekdays[$weekdayIndex];
+
+        return view('finish',compact('date','time','weekday',));
+    }
 }
