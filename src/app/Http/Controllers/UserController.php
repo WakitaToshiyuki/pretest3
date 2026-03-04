@@ -56,4 +56,31 @@ class UserController extends Controller
 
         return view('finish',compact('date','time','weekday',));
     }
+
+
+
+    public function login(){
+        return view('auth.user_login');
+    }
+    public function check(Request $request){
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
+        if (Auth::guard('web')->attempt($credentials)) {
+            $request->session()->regenerate();
+            return redirect()->intended('/');
+        }
+        return back()->withErrors([
+            'email' => 'ログイン情報が正しくありません。',
+        ]);
+    }
+    public function destroy(Request $request){
+        Auth::guard('web')->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/login');
+    }
+
+
 }
