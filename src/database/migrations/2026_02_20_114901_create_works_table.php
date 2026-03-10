@@ -16,9 +16,9 @@ class CreateWorksTable extends Migration
         Schema::create('works', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->string('date');
-            $table->string('start_time');
-            $table->string('finish_time');
+            $table->date('date');
+            $table->time('start_time');
+            $table->time('finish_time')->nullable();
             $table->timestamps();
         });
     }

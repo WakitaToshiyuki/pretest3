@@ -16,8 +16,8 @@ class CreateApplicationRestsTable extends Migration
         Schema::create('application_rests', function (Blueprint $table) {
             $table->id();
             $table->foreignId('application_id')->constrained()->cascadeOnDelete();
-            $table->string('update_start_time');
-            $table->string('update_finish_time');
+            $table->time('update_start_time');
+            $table->time('update_finish_time');
             $table->timestamps();
         });
     }

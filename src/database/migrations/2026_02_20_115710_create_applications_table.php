@@ -17,8 +17,8 @@ class CreateApplicationsTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->foreignId('work_id')->constrained()->cascadeOnDelete();
-            $table->string('update_start_time');
-            $table->string('update_finish_time');
+            $table->time('update_start_time');
+            $table->time('update_finish_time');
             $table->string('reason');
             $table->timestamps();
         });
