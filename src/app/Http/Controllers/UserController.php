@@ -75,23 +75,27 @@ class UserController extends Controller
             return view('user_index',compact('date','time','weekday','name',));
         }
         if($request->has('restart')){
+            $work = Work::where('user_id', $user->id)->whereNull('finish_time')->firstOrFail();
+            $rest = Rest::where('work_id', $work->id)->whereNull('finish_time')->firstOrFail();
             $name = 'work';
             $form =[
-                'work_id'=>$user->id,
-                'start_time'=>$request->post_number,
-                'finish_time'=>$request->address,
+                'work_id'=>$work->id,
+                'start_time'=>$rest->start_time,
+                'finish_time'=>$time,
             ];
+            $rest->update($form);
             return view('user_index',compact('date','time','weekday','name',));
         }
         if($request->has('finish')){
+            $work = Work::where('user_id', $user->id)->whereNull('finish_time')->firstOrFail();
             $name = 'finish';
             $form =[
                 'user_id'=>$user->id,
                 'date'=>$date,
-                'start_time'=>$request->post_number,
-                'finish_time'=>$request->address,
+                'start_time'=>$work->start_time,
+                'finish_time'=>$time,
             ];
-            dd($form);
+            $work->update($form);
             return view('user_index',compact('date','time','weekday','name',));
         }
     }

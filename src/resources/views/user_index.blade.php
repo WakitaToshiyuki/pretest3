@@ -12,8 +12,8 @@
                 <div class="">
                     <p class="">勤務中</p>
                 </div>
-                <p class="" name="date">{{$date}}({{$weekday}})</p>
-                <p class="" name="time">{{$time}}</p>
+                <p class="">{{$date}}({{$weekday}})</p>
+                <p class="">{{$time}}</p>
                 <div class="">
                     <button name="finish" class="">退勤</button>
                     <button name="rest" class="">休憩入</button>
@@ -28,7 +28,7 @@
                     <p class="">休憩中</p>
                 </div>
                 <p class="">{{$date}}({{$weekday}})</p>
-                <p class="" name="finish_time">{{$time}}</p>
+                <p class="">{{$time}}</p>
                 <button name="restart" class="">休憩戻</button>
             </form>
         </div>
@@ -51,7 +51,7 @@
                     <p class="">勤務外</p>
                 </div>
                 <p class="">{{$date->format('Y年m月d日')}}({{$weekday}})</p>
-                <p class="" name="start_time">{{$time}}</p>
+                <p class="">{{$time}}</p>
                 <button name="start" class="">出勤</button>
             </form>
         </div>
