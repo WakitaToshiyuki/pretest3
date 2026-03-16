@@ -16,15 +16,6 @@ use App\Http\Controllers\WorkController;
 |
 */
 
-
-// Route::middleware('auth')->group(function () {
-//     Route::get('/', [UserController::class, 'index']);
-//     Route::get('/work', [UserController::class, 'work']);
-//     Route::post('/work', [UserController::class, 'form']);
-//     Route::get('/rest', [UserController::class, 'rest']);
-//     Route::get('/finish', [UserController::class, 'finish']);
-// });
-
 //仮組↓
 //一般ユーザー
 // Route::get('/attendance', [UserController::class, '']);
@@ -47,10 +38,6 @@ Route::middleware('guest:web')->group(function () {
 Route::middleware('auth:web')->group(function () {
     Route::get('/', [UserController::class, 'index']);
     Route::post('/', [UserController::class, 'test']);
-    Route::get('/work', [UserController::class, 'work']);
-    Route::post('/work', [UserController::class, 'form']);
-    Route::get('/rest', [UserController::class, 'rest']);
-    Route::get('/finish', [UserController::class, 'finish']);
 });
 Route::prefix('manager')->group(function () {
     Route::middleware('guest:manager')->group(function () {
