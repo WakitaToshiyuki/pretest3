@@ -55,6 +55,11 @@ class UserController extends Controller
         $weekday = $weekdays[$weekdayIndex];
             
         if($request->has('start')){
+            $workCount = Work::where('user_id', $user->id)->where('date', $date)->exists();
+            if($workCount){
+                $error = '本日は出勤済みです。';
+                return view('user_index',compact('date','time','weekday','error',));
+            }
             $name = 'work';
             $form =[
                 'user_id'=>$user->id,
@@ -66,6 +71,12 @@ class UserController extends Controller
         }
         if($request->has('rest')){
             $work = Work::where('user_id', $user->id)->whereNull('finish_time')->firstOrFail();
+            $restCount = Rest::where('work_id', $work->id)->count();
+            if ($restCount >= 2) {
+                $name = 'work';
+                $error = '休憩は1日2回までです。';
+                return view('user_index',compact('date','time','weekday','name','error',));
+            }
             $name = 'rest';
             $form =[
                 'work_id'=>$work->id,

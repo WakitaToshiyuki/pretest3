@@ -17,6 +17,9 @@
                 <div class="">
                     <button name="finish" class="">退勤</button>
                     <button name="rest" class="">休憩入</button>
+                    @if (isset($error))
+                        <p style="color:red;">{{$error}}</p>
+                    @endif
                 </div>
             </form>
         </div>
@@ -53,6 +56,9 @@
                 <p class="">{{$date->format('Y年m月d日')}}({{$weekday}})</p>
                 <p class="">{{$time}}</p>
                 <button name="start" class="">出勤</button>
+                @if (isset($error))
+                    <p style="color:red;">{{$error}}</p>
+                @endif
             </form>
         </div>
     @endif
