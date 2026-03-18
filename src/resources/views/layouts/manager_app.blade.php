@@ -30,7 +30,7 @@
           </form>
         </th>
         <th>
-          <form action="/logout" method="post">
+          <form action="/manager/logout" method="post">
           @csrf
             <button class="header-nav__button">ログアウト</button>
           </form>

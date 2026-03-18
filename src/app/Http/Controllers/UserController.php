@@ -46,7 +46,7 @@ class UserController extends Controller
     }
 
 
-    public function test(Request $request){
+    public function work(Request $request){
         $user = auth('web')->user();
         $date = Carbon::today()->format('Y-m-d');
         $time = Carbon::now()->format('H:i');
@@ -98,5 +98,50 @@ class UserController extends Controller
             $work->update($form);
             return view('user_index',compact('date','time','weekday','name',));
         }
+    }
+
+
+
+    public function test(Request $request){
+        $user = auth('web')->user();
+        if ($request->month) {
+            $month = Carbon::parse($request->month);
+        } else {
+            $month = Carbon::today();
+        }
+        $start = $month->copy()->startOfMonth();
+        $end = $month->copy()->endOfMonth();
+        $nextMonth = $month->copy()->addMonth()->format('Y-m');
+        $prevMonth = $month->copy()->subMonth()->format('Y-m');
+        $dates = [];
+        $current = $start->copy();
+        while ($current->lte($end)) {
+            $dates[] = $current->copy();
+            $work = Work::where('user_id', $user->id)->where('date', $current->toDateString())->first();
+            $works[$current->toDateString()] = $work;
+            if ($work) {
+                $rests[$current->toDateString()] = Rest::where('work_id', $work->id)->get();
+                $totalrest = 0;
+                foreach ($rests[$current->toDateString()] as $rest) {
+                    $rest_start = Carbon::parse($rest->start_time);
+                    $rest_finish = Carbon::parse($rest->finish_time);
+                    $rest_time = $rest_finish->diffInMinutes($rest_start);
+                    $totalrest += $rest_time;
+                };
+                $totalrests[$current->toDateString()] = $totalrest;
+                if ($work->start_time && $work->finish_time){
+                    $work_start = Carbon::parse($work->start_time);
+                    $work_finish = Carbon::parse($work->finish_time);
+                    $work_time = $work_finish->diffInMinutes($work_start);
+                    $totalworks[$current->toDateString()] = $work_time - $totalrest;
+                }
+            } else {
+                $rests[$current->toDateString()] = collect();
+                $totalrests[$current->toDateString()] = null;
+                $totalworks[$current->toDateString()] = null;
+            }
+            $current->addDay();
+        }
+        return view('user_list',compact('month','dates','works','totalrests','totalworks','prevMonth','nextMonth',));
     }
 }

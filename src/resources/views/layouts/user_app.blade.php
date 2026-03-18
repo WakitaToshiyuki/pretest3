@@ -25,7 +25,7 @@
           <a href="/mypage">勤怠</a>
         </th>
         <th>
-          <a href="/mypage">勤怠一覧</a>
+          <a href="/list">勤怠一覧</a>
         </th>
         <th>
           <a href="/mypage">申請</a>

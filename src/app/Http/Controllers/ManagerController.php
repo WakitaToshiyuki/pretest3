@@ -30,4 +30,11 @@ class ManagerController extends Controller
             'email' => 'ログイン情報が正しくありません。',
         ]);
     }
+
+    public function destroy(Request $request){
+        Auth::guard('manager')->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/manager/login');
+    }
 }

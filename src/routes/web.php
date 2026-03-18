@@ -37,7 +37,8 @@ Route::middleware('guest:web')->group(function () {
 });
 Route::middleware('auth:web')->group(function () {
     Route::get('/', [UserController::class, 'index']);
-    Route::post('/', [UserController::class, 'test']);
+    Route::post('/', [UserController::class, 'work']);
+    Route::get('/list', [UserController::class, 'test'])->name('test');
 });
 Route::prefix('manager')->group(function () {
     Route::middleware('guest:manager')->group(function () {
@@ -46,6 +47,7 @@ Route::prefix('manager')->group(function () {
     });
     Route::middleware('auth:manager')->group(function () {
         Route::get('/attendance/list', [ManagerController::class, 'index']);
+        Route::post('/logout', [ManagerController::class, 'destroy']);
     });
 });
 
