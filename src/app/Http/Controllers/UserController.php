@@ -48,7 +48,7 @@ class UserController extends Controller
 
     public function work(Request $request){
         $user = auth('web')->user();
-        $date = Carbon::today()->format('Y-m-d');
+        $date = Carbon::today();
         $time = Carbon::now()->format('H:i');
         $weekdays = ['日', '月', '火', '水', '木', '金', '土'];
         $weekdayIndex = Carbon::now()->format('w');
@@ -71,12 +71,6 @@ class UserController extends Controller
         }
         if($request->has('rest')){
             $work = Work::where('user_id', $user->id)->whereNull('finish_time')->firstOrFail();
-            $restCount = Rest::where('work_id', $work->id)->count();
-            if ($restCount >= 2) {
-                $name = 'work';
-                $error = '休憩は1日2回までです。';
-                return view('user_index',compact('date','time','weekday','name','error',));
-            }
             $name = 'rest';
             $form =[
                 'work_id'=>$work->id,

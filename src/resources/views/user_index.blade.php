@@ -12,14 +12,11 @@
                 <div class="">
                     <p class="">勤務中</p>
                 </div>
-                <p class="">{{$date}}({{$weekday}})</p>
+                <p class="">{{$date->format('Y-m-d')}}({{$weekday}})</p>
                 <p class="">{{$time}}</p>
                 <div class="">
                     <button name="finish" class="">退勤</button>
                     <button name="rest" class="">休憩入</button>
-                    @if (isset($error))
-                        <p style="color:red;">{{$error}}</p>
-                    @endif
                 </div>
             </form>
         </div>
