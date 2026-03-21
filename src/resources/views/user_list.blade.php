@@ -27,10 +27,18 @@
             @endphp
         <tr class="">
             <td>{{ $date->format('n月j日') }}</td>
-            <td>{{ $work->start_time ?? '' }}</td>
-            <td>{{ $work->finish_time ?? '' }}</td>
-            <td>{{ $totalrests[$key] ?? 'あれれ？' }}</td>
-            <td>{{ $totalworks[$key] ?? 'なぜだ？' }}</td>
+            <td>
+                @if ($work)
+                    {{ \Carbon\Carbon::parse($work->start_time)->format('H:i') }}
+                @endif
+            </td>
+            <td>
+                @if ($work)
+                    {{ \Carbon\Carbon::parse($work->finish_time)->format('H:i') }}
+                @endif
+            </td>
+            <td>{{ $totalrests[$key] ?? '' }}</td>
+            <td>{{ $totalworks[$key] ?? '' }}</td>
             <td>詳細</td>
         </tr>
         @endforeach
