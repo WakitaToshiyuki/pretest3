@@ -27,7 +27,7 @@
                 <div class="">
                     <p class="">休憩中</p>
                 </div>
-                <p class="">{{$date}}({{$weekday}})</p>
+                <p class="">{{$date->format('Y-m-d')}}({{$weekday}})</p>
                 <p class="">{{$time}}</p>
                 <button name="restart" class="">休憩戻</button>
             </form>
@@ -37,7 +37,7 @@
             <div class="">
                 <p class="">退勤済</p>
             </div>
-            <p class="">{{$date}}({{$weekday}})</p>
+            <p class="">{{$date->format('Y-m-d')}}({{$weekday}})</p>
             <p class="">{{$time}}</p>
             <div class="">
                 <p>お疲れ様でした。</p>

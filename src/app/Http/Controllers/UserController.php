@@ -9,6 +9,7 @@ use App\Models\Rest;
 use Illuminate\Support\Facades\Auth;
 use App\Actions\Fortify\CreateNewUser;
 use Carbon\Carbon;
+use Carbon\CarbonInterval;
 
 class UserController extends Controller
 {
@@ -133,12 +134,12 @@ class UserController extends Controller
                     $rest_time = $rest_finish->diffInMinutes($rest_start);
                     $totalrest += $rest_time;
                 };
-                $totalrests[$current->toDateString()] = $totalrest;
+                $totalrests[$current->toDateString()] = CarbonInterval::minutes($totalrest)->cascade()->format('%h:%I');
                 if ($work->start_time && $work->finish_time){
                     $work_start = Carbon::parse($work->start_time);
                     $work_finish = Carbon::parse($work->finish_time);
                     $work_time = $work_finish->diffInMinutes($work_start);
-                    $totalworks[$current->toDateString()] = $work_time - $totalrest;
+                    $totalworks[$current->toDateString()] = CarbonInterval::minutes($work_time - $totalrest)->cascade()->format('%h:%I');
                 }
             } else {
                 $rests[$current->toDateString()] = collect();

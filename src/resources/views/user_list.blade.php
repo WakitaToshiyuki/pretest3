@@ -29,8 +29,8 @@
             <td>{{ $date->format('n月j日') }}</td>
             <td>{{ $work->start_time ?? '' }}</td>
             <td>{{ $work->finish_time ?? '' }}</td>
-            <td>{{ $totalrest[$key] ?? '' }}</td>
-            <td>{{ $totalwork[$key] ?? '' }}</td>
+            <td>{{ $totalrests[$key] ?? 'あれれ？' }}</td>
+            <td>{{ $totalworks[$key] ?? 'なぜだ？' }}</td>
             <td>詳細</td>
         </tr>
         @endforeach
