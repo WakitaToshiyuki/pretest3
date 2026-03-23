@@ -49,7 +49,7 @@ class UserController extends Controller
         ]);
         if (Auth::guard('web')->attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended('/');
+            return redirect()->intended('/attendance');
         }
         return back()->withErrors([
             'email' => 'ログイン情報が正しくありません。',
@@ -61,7 +61,6 @@ class UserController extends Controller
         $request->session()->regenerateToken();
         return redirect('/login');
     }
-
 
     public function work(Request $request){
         $user = auth('web')->user();
@@ -121,8 +120,6 @@ class UserController extends Controller
             return view('user_index',compact('date','time','weekday','name',));
         }
     }
-
-
 
     public function test(Request $request){
         $user = auth('web')->user();

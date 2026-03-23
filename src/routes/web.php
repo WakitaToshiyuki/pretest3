@@ -36,11 +36,11 @@ Route::middleware('guest:web')->group(function () {
     Route::post('/login', [UserController::class, 'check']);
 });
 Route::middleware('auth:web')->group(function () {
-    Route::get('/', [UserController::class, 'index']);
-    Route::post('/', [UserController::class, 'work']);
-    Route::get('/list', [UserController::class, 'test'])->name('test');
+    Route::get('/attendance', [UserController::class, 'index']);
+    Route::post('/attendance', [UserController::class, 'work']);
+    Route::get('/attendance/list', [UserController::class, 'test'])->name('test');
 });
-Route::prefix('manager')->group(function () {
+Route::prefix('admin')->group(function () {
     Route::middleware('guest:manager')->group(function () {
         Route::get('/login', [ManagerController::class, 'login'])->name('manager_login');
         Route::post('/login', [ManagerController::class, 'check']);

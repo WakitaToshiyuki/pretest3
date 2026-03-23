@@ -24,7 +24,7 @@
 </header>
 <main>
     <div>
-        <form class="form" action="/manager/login" method="post">
+        <form class="form" action="/admin/login" method="post">
         @csrf
             <h1>
                 ログイン

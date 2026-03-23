@@ -17,9 +17,7 @@
     <table>
       <tr>
         <th>
-          <a href="/">
-            <h1 class="title">COACHTECH</h1>
-          </a>
+          <h1 class="title">COACHTECH</h1>
         </th>
         <!-- @if(Auth::check()) -->
         <th>
@@ -30,7 +28,7 @@
           </form>
         </th>
         <th>
-          <form action="/manager/logout" method="post">
+          <form action="/admin/logout" method="post">
           @csrf
             <button class="header-nav__button">ログアウト</button>
           </form>

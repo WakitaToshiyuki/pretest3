@@ -24,7 +24,7 @@ class ManagerController extends Controller
         ]);
         if (Auth::guard('manager')->attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended('/manager/attendance/list');
+            return redirect()->intended('/admin/attendance/list');
         }
         return back()->withErrors([
             'email' => 'ログイン情報が正しくありません。',
@@ -35,6 +35,6 @@ class ManagerController extends Controller
         Auth::guard('manager')->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('/manager/login');
+        return redirect('/admin/login');
     }
 }
