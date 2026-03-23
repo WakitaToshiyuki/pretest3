@@ -7,7 +7,7 @@
 <div class="layout">
     @if(isset($name) && $name === 'work')
         <div class="">
-            <form action="/" method="POST" class="">
+            <form action="/attendance" method="POST" class="">
             @csrf
                 <div class="">
                     <p class="">勤務中</p>
@@ -22,7 +22,7 @@
         </div>
     @elseif(isset($name) && $name === 'rest')
         <div class="">
-            <form action="/" method="POST" class="">
+            <form action="/attendance" method="POST" class="">
             @csrf
                 <div class="">
                     <p class="">休憩中</p>
@@ -45,7 +45,7 @@
         </div>
     @else
         <div class="">
-            <form action="/" method="POST" class="">
+            <form action="/attendance" method="POST" class="">
             @csrf
                 <div class="">
                     <p class="">勤務外</p>

@@ -39,6 +39,7 @@ Route::middleware('auth:web')->group(function () {
     Route::get('/attendance', [UserController::class, 'index']);
     Route::post('/attendance', [UserController::class, 'work']);
     Route::get('/attendance/list', [UserController::class, 'test'])->name('test');
+    Route::post('/logout', [UserController::class, 'destroy']);
 });
 Route::prefix('admin')->group(function () {
     Route::middleware('guest:manager')->group(function () {

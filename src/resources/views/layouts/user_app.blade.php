@@ -20,10 +20,10 @@
           <h1 class="title">COACHTECH</h1>
         </th>
         <th>
-          <a href="/">勤怠</a>
+          <a href="/attendance">勤怠</a>
         </th>
         <th>
-          <a href="/list">勤怠一覧</a>
+          <a href="/attendance/list">勤怠一覧</a>
         </th>
         <th>
           <a href="/mypage">申請</a>
