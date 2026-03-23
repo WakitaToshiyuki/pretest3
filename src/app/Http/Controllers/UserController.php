@@ -14,13 +14,29 @@ use Carbon\CarbonInterval;
 class UserController extends Controller
 {
     public function index(){
+        $user = auth('web')->user();
         $date = Carbon::today();
         $time = Carbon::now()->format('H:i');
         $weekdays = ['日', '月', '火', '水', '木', '金', '土'];
         $weekdayIndex = Carbon::now()->format('w');
         $weekday = $weekdays[$weekdayIndex];
-
-        return view('user_index',compact('date','time','weekday',));
+        $work = Work::where('user_id', $user->id)->whereDate('date', $date)->first();
+        if (!$work) {
+            return view('user_index', compact('date','time','weekday',));
+        }
+        if ($work && $work->finish_time === null) {
+            $rest = Rest::where('work_id', $work->id)->whereNull('finish_time')->first();
+            if ($rest) {
+                $name = 'rest';
+            }else{
+                $name = 'work';
+            }
+            return view('user_index',compact('date','time','weekday','name',));
+        }
+        if ($work->finish_time !== null) {
+            $name = 'finish';
+            return view('user_index',compact('date','time','weekday','name',));
+        }
     }
 
     public function login(){

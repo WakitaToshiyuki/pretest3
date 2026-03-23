@@ -17,12 +17,10 @@
     <table>
       <tr>
         <th>
-          <a href="/">
-            <h1 class="title">COACHTECH</h1>
-          </a>
+          <h1 class="title">COACHTECH</h1>
         </th>
         <th>
-          <a href="/mypage">勤怠</a>
+          <a href="/">勤怠</a>
         </th>
         <th>
           <a href="/list">勤怠一覧</a>
