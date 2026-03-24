@@ -121,7 +121,7 @@ class UserController extends Controller
         }
     }
 
-    public function test(Request $request){
+    public function list(Request $request){
         $user = auth('web')->user();
         if ($request->month) {
             $month = Carbon::parse($request->month);
@@ -162,5 +162,11 @@ class UserController extends Controller
             $current->addDay();
         }
         return view('user_list',compact('month','dates','works','totalrests','totalworks','prevMonth','nextMonth',));
+    }
+
+    public function detail($date){
+        $user = auth('web')->user();
+        $work = Work::where('user_id', $user->id)->whereDate('date', $date)->firstOrFail();
+        return view('user_detail',compact('user','work',));
     }
 }

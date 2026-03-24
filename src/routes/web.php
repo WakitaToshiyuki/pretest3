@@ -38,7 +38,8 @@ Route::middleware('guest:web')->group(function () {
 Route::middleware('auth:web')->group(function () {
     Route::get('/attendance', [UserController::class, 'index']);
     Route::post('/attendance', [UserController::class, 'work']);
-    Route::get('/attendance/list', [UserController::class, 'test'])->name('test');
+    Route::get('/attendance/list', [UserController::class, 'list'])->name('list');
+    Route::get('/attendance/detail/{id}', [UserController::class, 'detail'])->name('detail');
     Route::post('/logout', [UserController::class, 'destroy']);
 });
 Route::prefix('admin')->group(function () {
