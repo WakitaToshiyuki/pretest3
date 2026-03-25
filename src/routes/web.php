@@ -36,11 +36,11 @@ Route::middleware('guest:web')->group(function () {
     Route::post('/login', [UserController::class, 'check']);
 });
 Route::middleware('auth:web')->group(function () {
+    Route::post('/logout', [UserController::class, 'destroy']);
     Route::get('/attendance', [UserController::class, 'index']);
     Route::post('/attendance', [UserController::class, 'work']);
     Route::get('/attendance/list', [UserController::class, 'list'])->name('list');
     Route::get('/attendance/detail/{id}', [UserController::class, 'detail'])->name('detail');
-    Route::post('/logout', [UserController::class, 'destroy']);
 });
 Route::prefix('admin')->group(function () {
     Route::middleware('guest:manager')->group(function () {
@@ -48,8 +48,11 @@ Route::prefix('admin')->group(function () {
         Route::post('/login', [ManagerController::class, 'check']);
     });
     Route::middleware('auth:manager')->group(function () {
-        Route::get('/attendance/list', [ManagerController::class, 'index'])->name('index');
         Route::post('/logout', [ManagerController::class, 'destroy']);
+        Route::get('/attendance/list', [ManagerController::class, 'index'])->name('index');
+        Route::get('/attendance/{id}', [ManagerController::class, 'detail'])->name('detail');
+        Route::get('/staff/list', [ManagerController::class, 'list']);
+        Route::get('/attendance/staff/{id}', [ManagerController::class, 'staff'])->name('staff');
     });
 });
 
