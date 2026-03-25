@@ -36,7 +36,7 @@
             <td>{{ $totalrests[$work->id] ?? '' }}</td>
             <td>{{ $totalworks[$work->id] ?? '' }}</td>
             <td>
-                <a href="{{ route('detail',['id'=>$date]) }}">詳細</a>
+                <a href="{{ route('manager_detail',['id'=>$work->id]) }}">詳細</a>
             </td>
         </tr>
         @endforeach

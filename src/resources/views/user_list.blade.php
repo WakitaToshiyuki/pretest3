@@ -40,7 +40,7 @@
             <td>{{ $totalrests[$key] ?? '' }}</td>
             <td>{{ $totalworks[$key] ?? '' }}</td>
             <td>
-                <a href="{{ route('detail',['id'=>$date]) }}">詳細</a>
+                <a href="{{ route('user_detail',['id'=>$date]) }}">詳細</a>
             </td>
         </tr>
         @endforeach
