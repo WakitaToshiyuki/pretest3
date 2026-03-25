@@ -4,7 +4,6 @@
 @endsection 
 
 @section('content')
-<h1>Manager</h1>
 <div class="">
     <h2>勤怠一覧</h2>
     <div class="">
