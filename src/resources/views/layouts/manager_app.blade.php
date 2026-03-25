@@ -34,15 +34,8 @@
             <button class="header-nav__button">ログアウト</button>
           </form>
         </th>
-        <th>
-          <a href="/mypage">マイページ</a>
-        </th>
-        <th>
-          <a href="/sell">出品</a>
-        </th>
       </tr>
     </table>
-
   </div>
 </header>
 <main>

@@ -26,7 +26,7 @@
           <a href="/attendance/list">勤怠一覧</a>
         </th>
         <th>
-          <a href="/mypage">申請</a>
+          <a href="/stamp_correction_request/list">申請</a>
         </th>
         <th>
           <form action="/logout" method="post">
@@ -36,7 +36,6 @@
         </th>
       </tr>
     </table>
-
   </div>
 </header>
 <main>
