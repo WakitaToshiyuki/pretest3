@@ -19,13 +19,14 @@
         <th>
           <h1 class="title">COACHTECH</h1>
         </th>
-        <!-- @if(Auth::check()) -->
         <th>
-          <form  action="/" method="POST">
-          @csrf
-            <input class="search" type="text" name="search_word" placeholder="なにをお探しですか？">
-            <input type="submit" value="探す">
-          </form>
+          <a href="/admin/attendance/list">勤怠一覧</a>
+        </th>
+        <th>
+          <a href="/admin/staff/list">スタッフ一覧</a>
+        </th>
+        <th>
+          <a href="/stamp_correction_request/list">申請一覧</a>
         </th>
         <th>
           <form action="/admin/logout" method="post">
@@ -39,24 +40,6 @@
         <th>
           <a href="/sell">出品</a>
         </th>
-        <!-- @else
-        <th>
-          <form  action="/" method="POST">
-          @csrf
-            <input class="search" type="text" name="search_word" placeholder="なにをお探しですか？">
-            <input type="submit" value="探す">
-          </form>
-        </th>
-        <th>
-          <a href="/login">ログイン</a>
-        </th>
-        <th>
-          <a href="/mypage">マイページ</a>
-        </th>
-        <th>
-          <a href="/sell">出品</a>
-        </th>
-        @endif -->
       </tr>
     </table>
 

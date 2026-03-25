@@ -48,7 +48,7 @@ Route::prefix('admin')->group(function () {
         Route::post('/login', [ManagerController::class, 'check']);
     });
     Route::middleware('auth:manager')->group(function () {
-        Route::get('/attendance/list', [ManagerController::class, 'index']);
+        Route::get('/attendance/list', [ManagerController::class, 'index'])->name('index');
         Route::post('/logout', [ManagerController::class, 'destroy']);
     });
 });
