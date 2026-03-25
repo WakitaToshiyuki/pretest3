@@ -28,10 +28,14 @@
                 {{ \Carbon\Carbon::parse($work->start_time)->format('H:i') }}
             </td>
             <td>
-                {{ \Carbon\Carbon::parse($work->finish_time)->format('H:i') }}    
+                @if ($work->finish_time)
+                    {{ \Carbon\Carbon::parse($work->finish_time)->format('H:i') }}
+                @else
+                    {{-- 空欄 --}}
+                @endif
             </td>
-            <td>{{ $totalrests ?? '' }}</td>
-            <td>{{ $totalworks ?? '' }}</td>
+            <td>{{ $totalrests[$work->id] ?? '' }}</td>
+            <td>{{ $totalworks[$work->id] ?? '' }}</td>
             <td>
                 <a href="{{ route('detail',['id'=>$date]) }}">詳細</a>
             </td>

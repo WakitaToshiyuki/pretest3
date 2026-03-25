@@ -9,6 +9,7 @@ use App\Models\Work;
 use App\Models\Rest;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use Carbon\CarbonInterval;
 
 class ManagerController extends Controller
 {
@@ -21,8 +22,29 @@ class ManagerController extends Controller
         $nextDay = $date->copy()->addDay()->format('Y-m-d');
         $prevDay = $date->copy()->subDay()->format('Y-m-d');
         $works = Work::with('user')->whereDate('date', $date)->get();
-
-        return view('manager_index',compact('works','date','prevDay','nextDay',));
+        $totalrests = [];
+        $totalworks = [];
+        foreach($works as $work){
+            if ($work->finish_time !== null) {
+                $rests = Rest::where('work_id', $work->id)->get();
+                $totalrest = 0;
+                foreach ($rests as $rest) {
+                    $rest_start = Carbon::parse($rest->start_time);
+                    $rest_finish = Carbon::parse($rest->finish_time);
+                    $rest_time = $rest_finish->diffInMinutes($rest_start);
+                    $totalrest += $rest_time;
+                }
+                $totalrests[$work->id] = CarbonInterval::minutes($totalrest)->cascade()->format('%h:%I');
+                $work_start = Carbon::parse($work->start_time);
+                $work_finish = Carbon::parse($work->finish_time);
+                $work_time = $work_finish->diffInMinutes($work_start);
+                $totalworks[$work->id] = CarbonInterval::minutes($work_time - $totalrest)->cascade()->format('%h:%I');
+            } else {
+                $totalrests[$work->id] = null;
+                $totalworks[$work->id] = null;
+            }
+        }
+        return view('manager_index',compact('works','date','prevDay','nextDay','totalrests','totalworks',));
     }
 
 
