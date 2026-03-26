@@ -47,6 +47,10 @@ class ManagerController extends Controller
         return view('manager_index',compact('works','date','prevDay','nextDay','totalrests','totalworks',));
     }
 
+    public function list(){
+        $users = User::all();
+        return view('manager_staff_list',compact('users',));
+    }
 
     public function login(){
         return view('auth.manager_login');
