@@ -167,6 +167,17 @@ class UserController extends Controller
     public function detail($date){
         $user = auth('web')->user();
         $work = Work::where('user_id', $user->id)->whereDate('date', $date)->first();
-        return view('user_detail',compact('user','work','date',));
+        $rests = Rest::where('work_id', $work->id)->get();
+        $restCount = $rests->count()+1;
+        $restRows = [];
+        for ($i = 0; $i<$restCount; $i++) {
+            $rest = $rests[$i] ?? null;
+            $restRows[] = [
+                'label' => $i === 0 ? '休憩' : '休憩' . ($i + 1),
+                'start_time' => $rest ? Carbon::parse($rest->start_time)->format('H:i') : '',
+                'finish_time' => $rest ? Carbon::parse($rest->finish_time)->format('H:i') : '',
+            ];
+        }
+        return view('user_detail',compact('user','work','date','restRows'));
     }
 }

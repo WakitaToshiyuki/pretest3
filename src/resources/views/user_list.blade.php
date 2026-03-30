@@ -39,9 +39,11 @@
             </td>
             <td>{{ $totalrests[$key] ?? '' }}</td>
             <td>{{ $totalworks[$key] ?? '' }}</td>
-            <td>
-                <a href="{{ route('user_detail',['id'=>$date]) }}">詳細</a>
-            </td>
+            @if($work)
+                <td>
+                    <a href="{{ route('user_detail',['id'=>$date]) }}">詳細</a>
+                </td>
+            @endif
         </tr>
         @endforeach
 
