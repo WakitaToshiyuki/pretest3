@@ -16,38 +16,73 @@
             <td class="">{{\Carbon\Carbon::parse($date)->format('Y年')}}</td>
             <td class="">{{\Carbon\Carbon::parse($date)->format('n月j日')}}</td>
         </tr>
-        <form action="{{ route('request',['id'=>$date]) }}" method="POST">
+        @if($application)
             <tr class="">
                 <td class="">出勤・退勤</td>
                 <td class="">
-                    <input type="text" class="" name="start_time" value="{{ \Carbon\Carbon::parse($work->start_time)->format('H:i')}}">
+                    {{ \Carbon\Carbon::parse($application->update_start_time)->format('H:i')}}
                 </td>
                 <td class="">～</td>
                 <td class="">
-                    <input type="text" class="" name="finish_time" value="{{ \Carbon\Carbon::parse($work->finish_time)->format('H:i')}}">
+                    {{ \Carbon\Carbon::parse($application->update_finish_time)->format('H:i')}}
                 </td>
             </tr>
-            @foreach ($restRows as $restRow)
+            @foreach($applicationRests as $applicationRest)
                 <tr class="">
-                    <td class="">{{$restRow['label']}}</td>
-                    <td class="">
-                        <input type="text" class="" name="start_time" value="{{$restRow['start_time']}}">
+                    <td>
+                        {{ \Carbon\Carbon::parse($applicationRest->update_start_time)->format('H:i')}}
                     </td>
-                    <td class="">～</td>
-                    <td class="">
-                        <input type="text" class="" name="finish_time" value="{{$restRow['finish_time']}}">
+                    <td>～</td>
+                    <td>
+                        {{ \Carbon\Carbon::parse($applicationRest->update_finish_time)->format('H:i')}}
                     </td>
                 </tr>
-            @endforeach
+            @endforeach    
             <tr class="">
                 <td class="">備考</td>
                 <td class="">
                     <textarea name=""></textarea>
                 </td>
             </tr>
-            <button class="">修正</button>
-        </form>
+        @else
+            <form action="{{ route('request',['id'=>$date]) }}" method="POST">
+                <tr class="">
+                    <td class="">出勤・退勤</td>
+                    <td class="">
+                        <input type="text" class="" name="start_time" value="{{ \Carbon\Carbon::parse($work->start_time)->format('H:i')}}">
+                    </td>
+                    <td class="">～</td>
+                    <td class="">
+                        <input type="text" class="" name="finish_time" value="{{ \Carbon\Carbon::parse($work->finish_time)->format('H:i')}}">
+                    </td>
+                </tr>
+                @foreach ($restRows as $restRow)
+                    <tr class="">
+                        <td class="">{{$restRow['label']}}</td>
+                        <td class="">
+                            <input type="text" class="" name="start_time" value="{{$restRow['start_time']}}">
+                        </td>
+                        <td class="">～</td>
+                        <td class="">
+                            <input type="text" class="" name="finish_time" value="{{$restRow['finish_time']}}">
+                        </td>
+                    </tr>
+                @endforeach
+                <tr class="">
+                    <td class="">備考</td>
+                    <td class="">
+                        <textarea name=""></textarea>
+                    </td>
+                </tr>
+                <button class="">修正</button>
+            </form>
+        @endif
     </table>
+    @if($application)
+        <p class="">
+            *承認待ちのため修正はできません。
+        </p>
+    @endif
 </div>
 
 @endsection
