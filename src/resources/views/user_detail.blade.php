@@ -44,6 +44,9 @@
                     <textarea name=""></textarea>
                 </td>
             </tr>
+            <p class="">
+                *承認待ちのため修正はできません。
+            </p>
         @else
             <form action="{{ route('request',['id'=>$date]) }}" method="POST">
                 <tr class="">
@@ -74,15 +77,12 @@
                         <textarea name=""></textarea>
                     </td>
                 </tr>
-                <button class="">修正</button>
+                <tr class="">
+                    <button class="">修正</button>
+                </tr>
             </form>
         @endif
     </table>
-    @if($application)
-        <p class="">
-            *承認待ちのため修正はできません。
-        </p>
-    @endif
 </div>
 
 @endsection
