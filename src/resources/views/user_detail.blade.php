@@ -78,7 +78,9 @@
                     </td>
                 </tr>
                 <tr class="">
-                    <button class="">修正</button>
+                    <div class="">
+                        <button class="">修正</button>
+                    </div>
                 </tr>
             </form>
         @endif

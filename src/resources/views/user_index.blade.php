@@ -12,7 +12,7 @@
                 <div class="">
                     <p class="">勤務中</p>
                 </div>
-                <p class="">{{$date->format('Y-m-d')}}({{$weekday}})</p>
+                <p class="">{{$date->format('Y年n月j日')}}({{$weekday}})</p>
                 <p class="">{{$time}}</p>
                 <div class="">
                     <button name="finish" class="">退勤</button>
@@ -27,7 +27,7 @@
                 <div class="">
                     <p class="">休憩中</p>
                 </div>
-                <p class="">{{$date->format('Y-m-d')}}({{$weekday}})</p>
+                <p class="">{{$date->format('Y年n月j日')}}({{$weekday}})</p>
                 <p class="">{{$time}}</p>
                 <button name="restart" class="">休憩戻</button>
             </form>
@@ -37,7 +37,7 @@
             <div class="">
                 <p class="">退勤済</p>
             </div>
-            <p class="">{{$date->format('Y-m-d')}}({{$weekday}})</p>
+            <p class="">{{$date->format('Y年n月j日')}}({{$weekday}})</p>
             <p class="">{{$time}}</p>
             <div class="">
                 <p>お疲れ様でした。</p>
@@ -50,7 +50,7 @@
                 <div class="">
                     <p class="">勤務外</p>
                 </div>
-                <p class="">{{$date->format('Y年m月d日')}}({{$weekday}})</p>
+                <p class="">{{$date->format('Y年n月j日')}}({{$weekday}})</p>
                 <p class="">{{$time}}</p>
                 <button name="start" class="">出勤</button>
                 @if (isset($error))
