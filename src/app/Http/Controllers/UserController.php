@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Work;
 use App\Models\Rest;
 use App\Models\Application;
+use App\Models\ApplicationRest;
 use Illuminate\Support\Facades\Auth;
 use App\Actions\Fortify\CreateNewUser;
 use Carbon\Carbon;
@@ -186,18 +187,27 @@ class UserController extends Controller
     public function request($date,Request $request){
         $user = auth('web')->user();
         $work = Work::where('user_id', $user->id)->whereDate('date', $date)->first();
-        $application = Application::where('work_id',$work->id)->first();
         $rests = Rest::where('work_id', $work->id)->get();
-        $restCount = $rests->count()+1;
-        $restRows = [];
-        for ($i = 0; $i<$restCount; $i++) {
-            $rest = $rests[$i] ?? null;
-            $restRows[] = [
-                'label' => $i === 0 ? '休憩' : '休憩' . ($i + 1),
-                'start_time' => $rest ? Carbon::parse($rest->start_time)->format('H:i') : '',
-                'finish_time' => $rest ? Carbon::parse($rest->finish_time)->format('H:i') : '',
+        $work_form = [
+            'user_id'=>$user->id,
+            'work_id'=>$work->id,
+            'update_start_time'=>$request->work_start_time,
+            'update_finish_time'=>$request->work_finish_time,
+            'reason'=>$request->reason,
+        ];
+        $application = Application::create($work_form);
+        $rest_forms = [];
+        foreach ($request->rest_start_time as $index => $start) {
+            $rest_forms[] = [
+                'rest_id' => $rests[$index]->id,
+                'application_id' => $application->id,
+                'update_start_time' => $start,
+                'update_finish_time' => $request->rest_finish_time[$index],
             ];
         }
-        return view('user_detail',compact('user','work','date','restRows'));
+        foreach ($rest_forms as $rest_form) {
+            ApplicationRest::create($rest_form);
+        }
+        return view('user_detail',compact('user','work','date',));
     }
 }

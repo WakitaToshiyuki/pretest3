@@ -52,29 +52,29 @@
                 <tr class="">
                     <td class="">出勤・退勤</td>
                     <td class="">
-                        <input type="text" class="" name="start_time" value="{{ \Carbon\Carbon::parse($work->start_time)->format('H:i')}}">
+                        <input type="text" class="" name="work_start_time" value="{{ \Carbon\Carbon::parse($work->start_time)->format('H:i')}}">
                     </td>
                     <td class="">～</td>
                     <td class="">
-                        <input type="text" class="" name="finish_time" value="{{ \Carbon\Carbon::parse($work->finish_time)->format('H:i')}}">
+                        <input type="text" class="" name="work_finish_time" value="{{ \Carbon\Carbon::parse($work->finish_time)->format('H:i')}}">
                     </td>
                 </tr>
                 @foreach ($restRows as $restRow)
                     <tr class="">
                         <td class="">{{$restRow['label']}}</td>
                         <td class="">
-                            <input type="text" class="" name="start_time" value="{{$restRow['start_time']}}">
+                            <input type="text" class="" name="rest_start_time[]" value="{{$restRow['start_time']}}">
                         </td>
                         <td class="">～</td>
                         <td class="">
-                            <input type="text" class="" name="finish_time" value="{{$restRow['finish_time']}}">
+                            <input type="text" class="" name="rest_finish_time[]" value="{{$restRow['finish_time']}}">
                         </td>
                     </tr>
                 @endforeach
                 <tr class="">
                     <td class="">備考</td>
                     <td class="">
-                        <textarea name=""></textarea>
+                        <textarea name="reason"></textarea>
                     </td>
                 </tr>
                 <tr class="">
