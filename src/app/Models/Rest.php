@@ -14,7 +14,8 @@ class Rest extends Model
         return $this->belongsTo(Work::class);
     }
 
-    public function applications(){
-        return $this->belongsToMany(Application::class);
+    public function rest(){
+        return $this->belongsTo(Rest::class);
     }
+
 }

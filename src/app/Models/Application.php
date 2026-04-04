@@ -21,8 +21,4 @@ class Application extends Model
     public function work(){
         return $this->belongsTo(Work::class);
     }
-
-    public function rests(){
-        return $this->belongsToMany(Rest::class);
-    }
 }

@@ -8,9 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class ApplicationRest extends Model
 {
     use HasFactory;
-    protected $fillable=['application_id','update_start_time','update_finish_time'];
+    protected $fillable=['application_id','rest_id','update_start_time','update_finish_time'];
 
     public function application(){
         return $this->belongsTo(Application::class);
     }
+
+    public function rest(){
+        return $this->belongsTo(Rest::class);
+    }
+
 }
