@@ -27,28 +27,22 @@
                     {{ \Carbon\Carbon::parse($application->update_finish_time)->format('H:i')}}
                 </td>
             </tr>
-            @foreach($applicationRests as $applicationRest)
+            @foreach($applicationRestRows as $applicationRestRow)
                 <tr class="">
-                    <td>
-                        {{ \Carbon\Carbon::parse($applicationRest->update_start_time)->format('H:i')}}
-                    </td>
+                    <td class="">{{$applicationRestRow['label']}}</td>
+                    <td>{{$applicationRestRow['start_time']}}</td>
                     <td>～</td>
-                    <td>
-                        {{ \Carbon\Carbon::parse($applicationRest->update_finish_time)->format('H:i')}}
-                    </td>
+                    <td>{{$applicationRestRow['finish_time']}}</td>
                 </tr>
             @endforeach    
             <tr class="">
                 <td class="">備考</td>
-                <td class="">
-                    <textarea name=""></textarea>
-                </td>
+                <td class="">{{$application->reason}}</td>
             </tr>
-            <p class="">
-                *承認待ちのため修正はできません。
-            </p>
+            <p class="">*承認待ちのため修正はできません。</p>
         @else
             <form action="{{ route('request',['id'=>$date]) }}" method="POST">
+            @csrf
                 <tr class="">
                     <td class="">出勤・退勤</td>
                     <td class="">
