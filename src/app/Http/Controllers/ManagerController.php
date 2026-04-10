@@ -7,6 +7,8 @@ use App\Models\Manager;
 use App\Models\User;
 use App\Models\Work;
 use App\Models\Rest;
+use App\Models\Application;
+use App\Models\ApplicationRest;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
@@ -78,8 +80,8 @@ class ManagerController extends Controller
 
     public function detail($work_id){
         $work = Work::findOrFail($work_id);
+        $date = $work->date;
         $application = Application::where('work_id',$work->id)->first();
-        $applicationRests = ApplicationRest::where('application_id', $application->id)->get();
         $rests = Rest::where('work_id', $work->id)->get();
         $restCount = $rests->count()+1;
         $restRows = [];
@@ -91,16 +93,21 @@ class ManagerController extends Controller
                 'finish_time' => $rest ? Carbon::parse($rest->finish_time)->format('H:i') : '',
             ];
         }
-        $applicationRestCount = $applicationRests->count();
-        $applicationRestRows = [];
-        for ($i = 0; $i<$applicationRestCount; $i++) {
-            $applicationRest = $applicationRests[$i] ?? null;
-            $applicationRestRows[] = [
-                'label' => $i === 0 ? '休憩' : '休憩' . ($i + 1),
-                'start_time' => Carbon::parse($applicationRest->update_start_time)->format('H:i'),
-                'finish_time' => $applicationRest ? Carbon::parse($applicationRest->update_finish_time)->format('H:i') : '',
-            ];
+        if($application){
+            $applicationRests = ApplicationRest::where('application_id', $application->id)->get();
+            $applicationRestCount = $applicationRests->count();
+            $applicationRestRows = [];
+            for ($i = 0; $i<$applicationRestCount; $i++) {
+                $applicationRest = $applicationRests[$i] ?? null;
+                $applicationRestRows[] = [
+                    'label' => $i === 0 ? '休憩' : '休憩' . ($i + 1),
+                    'start_time' => Carbon::parse($applicationRest->update_start_time)->format('H:i'),
+                    'finish_time' => $applicationRest ? Carbon::parse($applicationRest->update_finish_time)->format('H:i') : '',
+                ];
+            }
+            return view('manager_detail',compact('work','application','applicationRests','restRows','applicationRestRows','date'));
+        }else{
+            return view('manager_detail',compact('work','application','restRows','date',));
         }
-        return view('manager_detail',compact('work','application','applicationRests','restRows','applicationRestRows'));
     }
 }
