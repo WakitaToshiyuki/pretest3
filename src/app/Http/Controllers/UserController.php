@@ -169,8 +169,6 @@ class UserController extends Controller
     public function detail($date){
         $user = auth('web')->user();
         $work = Work::where('user_id', $user->id)->whereDate('date', $date)->first();
-        $application = Application::where('work_id',$work->id)->first();
-        $applicationRests = ApplicationRest::where('application_id', $application->id)->get();
         $rests = Rest::where('work_id', $work->id)->get();
         $restCount = $rests->count()+1;
         $restRows = [];
@@ -182,17 +180,24 @@ class UserController extends Controller
                 'finish_time' => $rest ? Carbon::parse($rest->finish_time)->format('H:i') : '',
             ];
         }
-        $applicationRestCount = $applicationRests->count();
-        $applicationRestRows = [];
-        for ($i = 0; $i<$applicationRestCount; $i++) {
-            $applicationRest = $applicationRests[$i] ?? null;
-            $applicationRestRows[] = [
-                'label' => $i === 0 ? '休憩' : '休憩' . ($i + 1),
-                'start_time' => Carbon::parse($applicationRest->update_start_time)->format('H:i'),
-                'finish_time' => $applicationRest ? Carbon::parse($applicationRest->update_finish_time)->format('H:i') : '',
-            ];
+        $application = Application::where('work_id',$work->id)->first();
+        if($application){
+            $applicationRests = ApplicationRest::where('application_id', $application->id)->get();
+            $applicationRestCount = $applicationRests->count();
+            $applicationRestRows = [];
+            for ($i = 0; $i<$applicationRestCount; $i++) {
+                $applicationRest = $applicationRests[$i] ?? null;
+                $applicationRestRows[] = [
+                    'label' => $i === 0 ? '休憩' : '休憩' . ($i + 1),
+                    'start_time' => Carbon::parse($applicationRest->update_start_time)->format('H:i'),
+                    'finish_time' => $applicationRest ? Carbon::parse($applicationRest->update_finish_time)->format('H:i') : '',
+                ];
+            }
+            return view('user_detail',compact('user','work','application','applicationRests','date','restRows','applicationRestRows'));
+        }else{
+            return view('user_detail',compact('user','work','application','date','restRows',));   
         }
-        return view('user_detail',compact('user','work','application','applicationRests','date','restRows','applicationRestRows'));
+        
     }
 
     public function request($date,Request $request){
