@@ -20,6 +20,7 @@ class CreateApplicationsTable extends Migration
             $table->time('update_start_time');
             $table->time('update_finish_time');
             $table->string('reason');
+            $table->unsignedTinyInteger('status')->default(0);
             $table->timestamps();
         });
     }

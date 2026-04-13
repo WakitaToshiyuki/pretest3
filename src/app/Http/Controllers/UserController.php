@@ -210,6 +210,7 @@ class UserController extends Controller
             'update_start_time'=>$request->work_start_time,
             'update_finish_time'=>$request->work_finish_time,
             'reason'=>$request->reason,
+            'status'=>Application::STATUS_PENDING,
         ];
         $application = Application::create($work_form);
         $rest_forms = [];
@@ -228,6 +229,6 @@ class UserController extends Controller
             ApplicationRest::create($rest_form);
         }
         $applicationRests = ApplicationRest::where('application_id', $application->id)->get();
-        return view('user_detail',compact('user','work','date','application','applicationRests',));
+        return redirect()->route('user_detail', ['id' => $date]);
     }
 }

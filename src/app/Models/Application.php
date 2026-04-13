@@ -8,7 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Application extends Model
 {
     use HasFactory;
-    protected $fillable=['user_id','work_id','update_start_time','update_finish_time','reason'];
+    const STATUS_PENDING = 0;
+    const STATUS_APPROVED = 1;
+    protected $fillable=['user_id','work_id','update_start_time','update_finish_time','reason','status'];
 
     public function application_rests(){
         return $this->hasMany(ApplicationRest::class);

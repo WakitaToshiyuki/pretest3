@@ -16,7 +16,7 @@
             <td class="">{{\Carbon\Carbon::parse($date)->format('Y年')}}</td>
             <td class="">{{\Carbon\Carbon::parse($date)->format('n月j日')}}</td>
         </tr>
-        @if($application)
+        @if($application->status === \App\Models\Application::STATUS_PENDING)
             <tr class="">
                 <td class="">出勤・退勤</td>
                 <td class="">
