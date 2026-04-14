@@ -49,6 +49,19 @@ php artisan migrate
 php artisan db:seed
 ```
 
+9. Docker コンテナに入る
+``` bash
+docker exec -it <コンテナ名> bash
+```
+
+10. コンテナ内で権限を修正
+``` bash
+chown -R www-data:www-data /var/www/storage
+chown -R www-data:www-data /var/www/bootstrap/cache
+chown -R www-data:www-data /var/www/vendor
+chmod -R 775 /var/www/storage
+chmod -R 775 /var/www/bootstrap/cache  
+```
 
 ※ 開発環境で Permission denied が出る場合は以下を実行してください
 docker exec -it pretest-php-1 bash
