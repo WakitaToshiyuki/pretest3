@@ -17,7 +17,7 @@
         </tr>
         @foreach ($applications as $application)
         <tr class="">
-            <td>{{ $application->getStatusLabel() }}</td>
+            <td>{{ $application->status }}</td>
             <td>{{ $application->user->name }}</td>
             <td>{{ $application->work->date }}</td>
             <td>{{ $application->reason }}</td>
