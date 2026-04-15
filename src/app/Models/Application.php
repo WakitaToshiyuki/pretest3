@@ -10,14 +10,6 @@ class Application extends Model
     use HasFactory;
     const STATUS_PENDING = 0;
     const STATUS_APPROVED = 1;
-
-    public function getStatusLabel(){
-        return match($this->status){
-            self::STATUS_PENDING => '承認待ち',
-            self::STATUS_APPROVED => '承認済み',
-        };
-    }
-
     protected $fillable=['user_id','work_id','update_start_time','update_finish_time','reason','status'];
 
     public function application_rests(){
