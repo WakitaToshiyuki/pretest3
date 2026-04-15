@@ -110,4 +110,9 @@ class ManagerController extends Controller
             return view('manager_detail',compact('work','application','restRows','date',));
         }
     }
+
+    public function request_list(){
+        $applications = Application::all();
+        return view('manager_request',compact('applications',));
+    }
 }

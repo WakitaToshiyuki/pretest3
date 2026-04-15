@@ -40,4 +40,7 @@ Route::prefix('admin')->group(function () {
         Route::get('/attendance/staff/{id}', [ManagerController::class, 'staff'])->name('staff');
     });
 });
+Route::middleware('auth:manager')->group(function () {
+    Route::get('/stamp_correction_request/list', [ManagerController::class, 'request_list']);
+});
 
