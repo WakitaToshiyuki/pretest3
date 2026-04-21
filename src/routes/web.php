@@ -42,5 +42,6 @@ Route::prefix('admin')->group(function () {
 });
 Route::middleware('auth:manager')->group(function () {
     Route::get('/stamp_correction_request/list', [ManagerController::class, 'request_list']);
+    Route::get('/stamp_correction_request/approve/{attendance_correct_request_id}', [ManagerController::class, 'request_approve'])->name('manager_approve');
 });
 

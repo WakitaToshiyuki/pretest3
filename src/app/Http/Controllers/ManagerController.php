@@ -115,4 +115,9 @@ class ManagerController extends Controller
         $applications = Application::all();
         return view('manager_request',compact('applications',));
     }
+
+    public function request_approve(){
+        $applications = Application::all();
+        return view('manager_request_correct',compact('applications',));
+    }
 }

@@ -17,12 +17,16 @@
         </tr>
         @foreach ($applications as $application)
         <tr class="">
-            <td>{{ $application->status }}</td>
+            @if($application->status === 1)
+                <td>承認済み</td>
+            @else
+                <td>承認待ち</td>
+            @endif
             <td>{{ $application->user->name }}</td>
             <td>{{ $application->work->date }}</td>
             <td>{{ $application->reason }}</td>
             <td>{{ $application->created_at }}</td>
-            <td><a href="">詳細</a></td>
+            <td><a href="{{ route('manager_approve',['attendance_correct_request_id'=>$application->id]) }}">詳細</a></td>
         </tr>
         @endforeach
     </table>
