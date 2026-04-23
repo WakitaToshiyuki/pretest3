@@ -116,8 +116,53 @@ class ManagerController extends Controller
         return view('manager_request',compact('applications',));
     }
 
-    public function request_approve(){
-        $applications = Application::all();
-        return view('manager_request_correct',compact('applications',));
+    public function request_approve($application_id){
+        $application = Application::findOrFail($application_id);
+        $applicationRests = ApplicationRest::where('application_id', $application->id)->get();
+        $applicationRestCount = $applicationRests->count();
+        $applicationRestRows = [];
+        for ($i = 0; $i<$applicationRestCount; $i++) {
+            $applicationRest = $applicationRests[$i] ?? null;
+            $applicationRestRows[] = [
+                'label' => $i === 0 ? '休憩' : '休憩' . ($i + 1),
+                'start_time' => Carbon::parse($applicationRest->update_start_time)->format('H:i'),
+                'finish_time' => $applicationRest ? Carbon::parse($applicationRest->update_finish_time)->format('H:i') : '',
+            ];
+        }
+        return view('manager_request_correct',compact('application','applicationRests','applicationRestRows',));
+    }
+
+    public function approve($application_id){
+        $application = Application::findOrFail($application_id);
+        $applicationRests = ApplicationRest::where('application_id', $application->id)->get();
+        $work = Work::findOrFail('id',$application->work_id);
+        $work_form = [
+            'user_id'=>$application->user_id,
+            'start_time'=>$application->update_start_time,
+            'finish_time'=>$request->update_finish_time,
+        ];
+        $work->update($work_form);
+        $application_form = [
+            'status'=>Application::STATUS_PENDING,
+        ];
+        $application->update($application_form);
+        $rest_forms = [];
+        // foreach ($request->rest_start_time as $index => $start) {
+        //     if (empty($start) && empty($finish)) {
+        //         continue;
+        //     }
+        //     $rest_forms[] = [
+        //         'work_id' => $work->id,
+        //         'start_time' => $start,
+        //         'finish_time' => $request->rest_finish_time[$index],
+        //     ];
+        // }
+        // foreach ($rest_forms as $rest_form) {
+        //     ApplicationRest::create($rest_form);
+        // }
+        // $applicationRests = ApplicationRest::where('application_id', $application->id)->get();
+        foreach ($applicationRests as $applicationRest){
+            // if(){}else{}
+        }
     }
 }

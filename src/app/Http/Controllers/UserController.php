@@ -219,7 +219,7 @@ class UserController extends Controller
                 continue;
             }
             $rest_forms[] = [
-                'rest_id' => $rests[$index]->id,
+                'rest_id' => $rests[$index]->id ?? null,
                 'application_id' => $application->id,
                 'update_start_time' => $start,
                 'update_finish_time' => $request->rest_finish_time[$index],
