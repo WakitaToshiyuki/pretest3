@@ -135,34 +135,30 @@ class ManagerController extends Controller
     public function approve($application_id){
         $application = Application::findOrFail($application_id);
         $applicationRests = ApplicationRest::where('application_id', $application->id)->get();
-        $work = Work::findOrFail('id',$application->work_id);
+        $work = Work::findOrFail($application->work_id);
         $work_form = [
             'user_id'=>$application->user_id,
             'start_time'=>$application->update_start_time,
-            'finish_time'=>$request->update_finish_time,
+            'finish_time'=>$application->update_finish_time,
         ];
         $work->update($work_form);
         $application_form = [
-            'status'=>Application::STATUS_PENDING,
+            'status'=>Application::STATUS_APPROVED,
         ];
         $application->update($application_form);
-        $rest_forms = [];
-        // foreach ($request->rest_start_time as $index => $start) {
-        //     if (empty($start) && empty($finish)) {
-        //         continue;
-        //     }
-        //     $rest_forms[] = [
-        //         'work_id' => $work->id,
-        //         'start_time' => $start,
-        //         'finish_time' => $request->rest_finish_time[$index],
-        //     ];
-        // }
-        // foreach ($rest_forms as $rest_form) {
-        //     ApplicationRest::create($rest_form);
-        // }
-        // $applicationRests = ApplicationRest::where('application_id', $application->id)->get();
         foreach ($applicationRests as $applicationRest){
-            // if(){}else{}
+            $rest_form = [
+                'work_id'=>$work->id,
+                'start_time'=>$applicationRest->update_start_time,
+                'finish_time'=>$applicationRest->update_finish_time,
+            ];
+            if($applicationRest->rest_id === null){
+                Rest::create($rest_form);
+            }else{
+                $rest = Rest::findOrFail($applicationRest->rest_id);
+                $rest->update($rest_form);
+            }
         }
+        return redirect()->route('manager_approve',['attendance_correct_request_id'=>$application->id]);
     }
 }
