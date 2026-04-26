@@ -19,7 +19,7 @@ Route::middleware('guest:web')->group(function () {
     Route::get('/login', [UserController::class, 'login'])->name('user_login');
     Route::post('/login', [UserController::class, 'check']);
 });
-Route::middleware('auth:web')->group(function () {
+Route::middleware('auth:web', 'verified')->group(function () {
     Route::post('/logout', [UserController::class, 'destroy']);
     Route::get('/attendance', [UserController::class, 'index']);
     Route::post('/attendance', [UserController::class, 'work']);
